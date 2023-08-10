@@ -1,9 +1,11 @@
+import { time } from 'console'
 import React, { ChangeEvent, useRef, useState } from 'react'
 
 export default function calculateVertical() {
   const [videoPlayer, setVideoPlayerSrc] = useState('')
+  const [isFpsCalculated, setIsFpsCalculated] = useState(false)
   const [videoFps, setVideoFps] = useState(0)
-  const [isCalculatingFps, setIsCalculatingFps] = useState(false)
+
   const videoPlayerRef = useRef<HTMLVideoElement | null>(null)
 
   function uploadVideoHandler(e: ChangeEvent<HTMLInputElement>) {
@@ -17,11 +19,14 @@ export default function calculateVertical() {
     }
   }
 
-  function playGetFpsVideo() {
-    let last_media_time: number, last_frame_num: number
+  function getFpsOfVideo() {
+    if (isFpsCalculated) {
+      return
+    }
+
+    let lastMediaTime: number, lastFrameNumber: number
     let maxTick: number = 50
     let timeDiffPerFrameArr: number[] = []
-    let fps: number
 
     if (!videoPlayerRef.current) {
       return
@@ -29,52 +34,94 @@ export default function calculateVertical() {
 
     videoPlayerRef.current.play()
 
-    videoPlayerRef.current.requestVideoFrameCallback(
-      appendTimeDiffPerFrameToArr
-    )
-
-    function appendTimeDiffPerFrameToArr(
-      time: number,
-      metadata: { mediaTime: number; presentedFrames: number }
-    ) {
-      // getting the time difference
-      let media_time_diff = Math.abs(metadata.mediaTime - last_media_time)
-      // getting the number of frames for the above time difference
-      let frame_num_diff = Math.abs(metadata.presentedFrames - last_frame_num)
-      // diff = the avg time diff per frame
-      let timeDiffPerFrame = media_time_diff / frame_num_diff
-
-      if (!videoPlayerRef.current) {
-        return
-      }
-
-      if (
-        timeDiffPerFrame &&
-        timeDiffPerFrameArr.length < maxTick &&
-        videoPlayerRef.current.playbackRate === 1 &&
-        document.hasFocus()
-      ) {
-        timeDiffPerFrameArr.push(timeDiffPerFrame)
-      } else if (timeDiffPerFrameArr.length >= maxTick) {
-        fps = Math.round(1 / calAvgTimeDiffPerFrame())
-        setVideoFps(fps)
-        videoPlayerRef.current.pause()
-        return
-      }
-
-      last_media_time = metadata.mediaTime
-      last_frame_num = metadata.presentedFrames
-
-      videoPlayerRef.current.requestVideoFrameCallback(
-        appendTimeDiffPerFrameToArr
+    videoPlayerRef.current.requestVideoFrameCallback((now, metadata) => {
+      appendTimeDiffPerFrameToArr(
+        now,
+        metadata,
+        lastMediaTime,
+        lastFrameNumber,
+        timeDiffPerFrameArr,
+        maxTick
       )
+    })
+  }
+
+  function appendTimeDiffPerFrameToArr(
+    now: number,
+    metadata: { mediaTime: number; presentedFrames: number },
+    lastMediaTime: number,
+    lastFrameNumber: number,
+    timeDiffPerFrameArr: number[],
+    maxTick: number
+  ) {
+    // getting the time difference
+    let media_time_diff = Math.abs(metadata.mediaTime - lastMediaTime)
+    // getting the number of frames for the above time difference
+    let frame_num_diff = Math.abs(metadata.presentedFrames - lastFrameNumber)
+    // diff = the avg time diff per frame
+    let timeDiffPerFrame = media_time_diff / frame_num_diff
+
+    if (!videoPlayerRef.current) {
+      return
     }
 
-    function calAvgTimeDiffPerFrame() {
-      // Gets the sum of time difference / arr count
-      return (
-        timeDiffPerFrameArr.reduce((a, b) => a + b) / timeDiffPerFrameArr.length
+    if (
+      timeDiffPerFrame &&
+      timeDiffPerFrameArr.length < maxTick &&
+      videoPlayerRef.current.playbackRate === 1 &&
+      document.hasFocus()
+    ) {
+      timeDiffPerFrameArr.push(timeDiffPerFrame)
+    } else if (timeDiffPerFrameArr.length >= maxTick) {
+      let fps = Math.round(1 / calAvgTimeDiffPerFrame(timeDiffPerFrameArr))
+      setVideoFps(fps)
+      setIsFpsCalculated(true)
+      videoPlayerRef.current.pause()
+      return
+    }
+
+    lastMediaTime = metadata.mediaTime
+    lastFrameNumber = metadata.presentedFrames
+
+    videoPlayerRef.current.requestVideoFrameCallback((now, metadata) => {
+      appendTimeDiffPerFrameToArr(
+        now,
+        metadata,
+        lastMediaTime,
+        lastFrameNumber,
+        timeDiffPerFrameArr,
+        maxTick
       )
+    })
+  }
+
+  function calAvgTimeDiffPerFrame(timeDiffPerFrameArr: number[]) {
+    // Gets the sum of time difference / arr count
+    return (
+      timeDiffPerFrameArr.reduce((a, b) => a + b) / timeDiffPerFrameArr.length
+    )
+  }
+
+  function nextFrameHandler() {
+    if (videoFps > 0 && videoPlayerRef.current) {
+      console.log(
+        `next frame by ${parseFloat(
+          (Math.ceil((1 / videoFps) * 1000) / 1000).toFixed(3)
+        )}`
+      )
+      let videoPlayer: HTMLVideoElement = videoPlayerRef.current
+
+      videoPlayer.currentTime += parseFloat(
+        (Math.ceil((1 / videoFps) * 1000) / 1000).toFixed(3)
+      )
+    }
+  }
+
+  function previousFrameHandler() {
+    if (videoFps > 0 && videoPlayerRef.current) {
+      let videoPlayer: HTMLVideoElement = videoPlayerRef.current
+
+      videoPlayer.currentTime -= 1 / videoFps
     }
   }
 
@@ -88,7 +135,7 @@ export default function calculateVertical() {
 
       <video
         className="h-96 w-96"
-        onCanPlay={playGetFpsVideo}
+        onCanPlay={getFpsOfVideo}
         src={videoPlayer}
         ref={videoPlayerRef}
         controls
@@ -96,6 +143,20 @@ export default function calculateVertical() {
         Your browser does not support the video tag.
       </video>
       <p>{videoFps}</p>
+      <button
+        onClick={() => {
+          nextFrameHandler()
+        }}
+      >
+        Next frame
+      </button>
+      <button
+        onClick={() => {
+          previousFrameHandler()
+        }}
+      >
+        Previous frame
+      </button>
     </div>
   )
 }
