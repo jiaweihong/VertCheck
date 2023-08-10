@@ -1,9 +1,10 @@
 import React, { ChangeEvent, useRef, useState } from 'react'
 
 export default function calculateVertical() {
-  const [videoGetFpsSrc, setVideoGetFpsSrc] = useState('')
+  const [videoPlayer, setVideoPlayerSrc] = useState('')
   const [videoFps, setVideoFps] = useState(0)
-  const videoGetFpsRef = useRef<HTMLVideoElement | null>(null)
+  const [isCalculatingFps, setIsCalculatingFps] = useState(false)
+  const videoPlayerRef = useRef<HTMLVideoElement | null>(null)
 
   function uploadVideoHandler(e: ChangeEvent<HTMLInputElement>) {
     const selectedFiles = e.target.files
@@ -12,7 +13,7 @@ export default function calculateVertical() {
       const video = selectedFiles[0]
       const url = URL.createObjectURL(video)
 
-      setVideoGetFpsSrc(url)
+      setVideoPlayerSrc(url)
     }
   }
 
@@ -22,13 +23,13 @@ export default function calculateVertical() {
     let timeDiffPerFrameArr: number[] = []
     let fps: number
 
-    if (!videoGetFpsRef.current) {
+    if (!videoPlayerRef.current) {
       return
     }
 
-    videoGetFpsRef.current.play()
+    videoPlayerRef.current.play()
 
-    videoGetFpsRef.current.requestVideoFrameCallback(
+    videoPlayerRef.current.requestVideoFrameCallback(
       appendTimeDiffPerFrameToArr
     )
 
@@ -43,28 +44,28 @@ export default function calculateVertical() {
       // diff = the avg time diff per frame
       let timeDiffPerFrame = media_time_diff / frame_num_diff
 
-      if (!videoGetFpsRef.current) {
+      if (!videoPlayerRef.current) {
         return
       }
 
       if (
         timeDiffPerFrame &&
         timeDiffPerFrameArr.length < maxTick &&
-        videoGetFpsRef.current.playbackRate === 1 &&
+        videoPlayerRef.current.playbackRate === 1 &&
         document.hasFocus()
       ) {
         timeDiffPerFrameArr.push(timeDiffPerFrame)
       } else if (timeDiffPerFrameArr.length >= maxTick) {
         fps = Math.round(1 / calAvgTimeDiffPerFrame())
         setVideoFps(fps)
-        videoGetFpsRef.current.pause()
+        videoPlayerRef.current.pause()
         return
       }
 
       last_media_time = metadata.mediaTime
       last_frame_num = metadata.presentedFrames
 
-      videoGetFpsRef.current.requestVideoFrameCallback(
+      videoPlayerRef.current.requestVideoFrameCallback(
         appendTimeDiffPerFrameToArr
       )
     }
@@ -84,11 +85,12 @@ export default function calculateVertical() {
         accept="video/*"
         onChange={(e) => uploadVideoHandler(e)}
       />
+
       <video
         className="h-96 w-96"
         onCanPlay={playGetFpsVideo}
-        src={videoGetFpsSrc}
-        ref={videoGetFpsRef}
+        src={videoPlayer}
+        ref={videoPlayerRef}
         controls
       >
         Your browser does not support the video tag.
