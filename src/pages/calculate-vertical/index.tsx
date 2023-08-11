@@ -104,16 +104,9 @@ export default function calculateVertical() {
 
   function nextFrameHandler() {
     if (videoFps > 0 && videoPlayerRef.current) {
-      console.log(
-        `next frame by ${parseFloat(
-          (Math.ceil((1 / videoFps) * 1000) / 1000).toFixed(3)
-        )}`
-      )
       let videoPlayer: HTMLVideoElement = videoPlayerRef.current
 
-      videoPlayer.currentTime += parseFloat(
-        (Math.ceil((1 / videoFps) * 1000) / 1000).toFixed(3)
-      )
+      videoPlayer.currentTime += getSecondsPerFrameRoundUpTo3Dp(videoFps)
     }
   }
 
@@ -121,8 +114,12 @@ export default function calculateVertical() {
     if (videoFps > 0 && videoPlayerRef.current) {
       let videoPlayer: HTMLVideoElement = videoPlayerRef.current
 
-      videoPlayer.currentTime -= 1 / videoFps
+      videoPlayer.currentTime -= getSecondsPerFrameRoundUpTo3Dp(videoFps)
     }
+  }
+
+  function getSecondsPerFrameRoundUpTo3Dp(fps: number) {
+    return parseFloat((Math.ceil((1 / fps) * 1000) / 1000).toFixed(3))
   }
 
   return (
