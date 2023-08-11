@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function Header() {
   return (
-    <ul className="flex justify-between">
+    <ul className="flex justify-between pb-10">
       <li>
         <Link href="/">VertCheck</Link>
       </li>

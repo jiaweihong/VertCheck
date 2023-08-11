@@ -1,9 +1,12 @@
-import { time } from 'console'
 import React, { ChangeEvent, useRef, useState } from 'react'
 
 export default function calculateVertical() {
   const [videoPlayer, setVideoPlayerSrc] = useState('')
   const [isFpsCalculated, setIsFpsCalculated] = useState(false)
+  const [takeoffTime, setTakeoffTime] = useState(0)
+  const [landingTime, setLandingTime] = useState(0)
+  const [vertical, setVertical] = useState(0)
+
   const [videoFps, setVideoFps] = useState(0)
 
   const videoPlayerRef = useRef<HTMLVideoElement | null>(null)
@@ -25,7 +28,7 @@ export default function calculateVertical() {
     }
 
     let lastMediaTime: number, lastFrameNumber: number
-    let maxTick: number = 50
+    let maxTick: number = 100
     let timeDiffPerFrameArr: number[] = []
 
     if (!videoPlayerRef.current) {
@@ -105,7 +108,6 @@ export default function calculateVertical() {
   function nextFrameHandler() {
     if (videoFps > 0 && videoPlayerRef.current) {
       let videoPlayer: HTMLVideoElement = videoPlayerRef.current
-
       videoPlayer.currentTime += getSecondsPerFrameRoundUpTo3Dp(videoFps)
     }
   }
@@ -113,7 +115,6 @@ export default function calculateVertical() {
   function previousFrameHandler() {
     if (videoFps > 0 && videoPlayerRef.current) {
       let videoPlayer: HTMLVideoElement = videoPlayerRef.current
-
       videoPlayer.currentTime -= getSecondsPerFrameRoundUpTo3Dp(videoFps)
     }
   }
@@ -122,38 +123,108 @@ export default function calculateVertical() {
     return parseFloat((Math.ceil((1 / fps) * 1000) / 1000).toFixed(3))
   }
 
+  function takeoffHandler() {
+    if (videoPlayerRef.current) {
+      let videoPlayer: HTMLVideoElement = videoPlayerRef.current
+      setTakeoffTime(videoPlayer.currentTime)
+    }
+  }
+
+  function landingHandler() {
+    if (videoPlayerRef.current) {
+      let videoPlayer: HTMLVideoElement = videoPlayerRef.current
+      setLandingTime(videoPlayer.currentTime)
+    }
+  }
+
+  function calculateVerticalHandler() {
+    const flightTime = landingTime - takeoffTime
+    const displacement = 1.22625 * Math.pow(flightTime, 2)
+    setVertical(metersToInches1Dp(displacement))
+  }
+
+  function metersToInches1Dp(meters: number) {
+    const inchesPerMeter = 39.3701
+    const inches = meters * inchesPerMeter
+    return Math.round(inches * 10) / 10
+  }
+
   return (
     <div className="flex">
-      <input
-        type="file"
-        accept="video/*"
-        onChange={(e) => uploadVideoHandler(e)}
-      />
+      <div>
+        <input
+          type="file"
+          accept="video/*"
+          onChange={(e) => uploadVideoHandler(e)}
+        />
 
-      <video
-        className="h-96 w-96"
-        onCanPlay={getFpsOfVideo}
-        src={videoPlayer}
-        ref={videoPlayerRef}
-        controls
-      >
-        Your browser does not support the video tag.
-      </video>
-      <p>{videoFps}</p>
-      <button
-        onClick={() => {
-          nextFrameHandler()
-        }}
-      >
-        Next frame
-      </button>
-      <button
-        onClick={() => {
-          previousFrameHandler()
-        }}
-      >
-        Previous frame
-      </button>
+        <p>fps: {videoFps}</p>
+
+        <video
+          className="h-96 w-96"
+          onCanPlay={getFpsOfVideo}
+          src={videoPlayer}
+          ref={videoPlayerRef}
+          controls
+        >
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+      <div className="flex flex-col pt-20">
+        <button
+          className="h-14 bg-yellow-500 text-lg font-bold uppercase hover:bg-yellow-600"
+          onClick={() => {
+            nextFrameHandler()
+          }}
+        >
+          Next frame
+        </button>
+
+        <button
+          className="h-14  bg-yellow-500 text-lg font-bold uppercase hover:bg-yellow-600"
+          onClick={() => {
+            previousFrameHandler()
+          }}
+        >
+          Previous frame
+        </button>
+
+        <button
+          className="h-14 bg-yellow-500 text-lg font-bold uppercase hover:bg-yellow-600"
+          onClick={() => {
+            takeoffHandler()
+          }}
+        >
+          Takeoff
+        </button>
+
+        <button
+          className="h-14 bg-yellow-500 text-lg font-bold uppercase hover:bg-yellow-600"
+          onClick={() => {
+            landingHandler()
+          }}
+        >
+          landing
+        </button>
+
+        <button
+          className="h-14 bg-yellow-500 text-lg font-bold uppercase hover:bg-yellow-600"
+          onClick={() => {
+            calculateVerticalHandler()
+          }}
+        >
+          Calculate vertical
+        </button>
+      </div>
+
+      <div className="flex w-96 flex-col items-center text-2xl">
+        <p>Statistic</p>
+
+        <p>Takeoff: {takeoffTime}s</p>
+        <p>Landing: {landingTime}s</p>
+        <p>Vertical Jump: {vertical}"</p>
+      </div>
     </div>
   )
 }
