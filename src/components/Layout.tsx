@@ -5,7 +5,7 @@ export default function Layout(props: any) {
   const { children } = props
 
   return (
-    <div className="flex min-h-screen flex-col px-32">
+    <div className="flex min-h-screen flex-col bg-[#F3F7F0]">
       <Header />
 
       <main>{children}</main>
