@@ -271,12 +271,23 @@ export default function calculateVertical() {
         </div>
       </div>
 
-      <div className="flex w-1/3 flex-col items-center text-2xl">
-        <p>Calculation</p>
+      <div className="flex w-1/3 flex-col border-2 border-gray-200 text-2xl">
+        <p className="h-20 border-b-2 border-gray-200">Calculation</p>
 
-        <p>Takeoff: {takeoffTime}s</p>
-        <p>Landing: {landingTime}s</p>
-        <p>Vertical Jump: {vertical}"</p>
+        <div className="flex flex-col">
+          <div className="flex h-32 w-full flex-col items-center justify-center border-b-2 border-gray-200">
+            <p>{takeoffTime}s</p>
+            <p>Takeoff:</p>
+          </div>
+          <div className="flex h-32 w-full flex-col items-center justify-center border-b-2 border-gray-200">
+            <p>{landingTime}s</p>
+            <p>Landing: </p>
+          </div>
+          <div className="flex h-32 w-full flex-col items-center justify-center border-b-2 border-gray-200">
+            <p>{vertical}"</p>
+            <p>Vertical Jump: </p>
+          </div>
+        </div>
       </div>
     </div>
   )
