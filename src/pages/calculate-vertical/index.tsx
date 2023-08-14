@@ -272,7 +272,9 @@ export default function calculateVertical() {
       </div>
 
       <div className="flex w-1/3 flex-col justify-center text-2xl">
-        <p className="flex h-20 items-center justify-center">Results</p>
+        <p className="flex h-20 items-center justify-center text-3xl">
+          Results
+        </p>
 
         <div className="flex flex-col items-center">
           <div className="flex h-32 w-32 flex-col items-center justify-center">
