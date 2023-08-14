@@ -5,10 +5,10 @@ export default function Layout(props: any) {
   const { children } = props
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#F3F7F0]">
+    <div className="flex min-h-screen flex-col bg-[#FFFFFF]">
       <Header />
 
-      <main>{children}</main>
+      <main className="px-32">{children}</main>
     </div>
   )
 }

@@ -169,7 +169,7 @@ export default function calculateVertical() {
   }
 
   return (
-    <div className="flex">
+    <div className="flex text-[#19323C]">
       <div className="flex w-2/3 flex-col">
         <div className="flex items-center py-4">
           <input
@@ -180,14 +180,14 @@ export default function calculateVertical() {
             onChange={(e) => uploadVideoHandler(e)}
           />
           <label
-            className="mr-4 rounded border border-blue-500 bg-transparent px-4 py-2 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white "
+            className="mr-4 rounded border-2 border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:cursor-pointer hover:border-transparent hover:bg-[#222660] hover:text-white"
             htmlFor="inputVideoBtn"
           >
             Upload Video
           </label>
         </div>
 
-        <div className="flex justify-between">
+        <div className="flex justify-between text-2xl">
           <p>Title: {videoTitle}</p>
           <p>fps: {videoFps}</p>
         </div>
@@ -206,7 +206,7 @@ export default function calculateVertical() {
 
           {isVideoUploading && (
             <MoonLoader
-              color="#306fe6"
+              color="#222660"
               loading={isVideoUploading}
               size={150}
             />
@@ -225,7 +225,7 @@ export default function calculateVertical() {
 
         <div className="flex justify-between py-4 text-lg">
           <button
-            className="rounded border border-blue-500 bg-transparent px-4 py-2 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white"
+            className="rounded border border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:border-transparent hover:bg-[#222660] hover:text-white"
             onClick={() => {
               nextFrameHandler()
             }}
@@ -234,7 +234,7 @@ export default function calculateVertical() {
           </button>
 
           <button
-            className="rounded border border-blue-500 bg-transparent px-4 py-2 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white"
+            className="rounded border border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:border-transparent hover:bg-[#222660] hover:text-white"
             onClick={() => {
               previousFrameHandler()
             }}
@@ -243,7 +243,7 @@ export default function calculateVertical() {
           </button>
 
           <button
-            className="rounded border border-blue-500 bg-transparent px-4 py-2 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white"
+            className="rounded border border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:border-transparent hover:bg-[#222660] hover:text-white"
             onClick={() => {
               takeoffHandler()
             }}
@@ -252,7 +252,7 @@ export default function calculateVertical() {
           </button>
 
           <button
-            className="rounded border border-blue-500 bg-transparent px-4 py-2 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white"
+            className="rounded border border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:border-transparent hover:bg-[#222660] hover:text-white"
             onClick={() => {
               landingHandler()
             }}
@@ -261,7 +261,7 @@ export default function calculateVertical() {
           </button>
 
           <button
-            className="rounded border border-blue-500 bg-transparent px-4 py-2 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white"
+            className="rounded border border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:border-transparent hover:bg-[#222660] hover:text-white"
             onClick={() => {
               calculateVerticalHandler()
             }}
@@ -271,21 +271,25 @@ export default function calculateVertical() {
         </div>
       </div>
 
-      <div className="flex w-1/3 flex-col border-2 border-gray-200 text-2xl">
-        <p className="h-20 border-b-2 border-gray-200">Calculation</p>
+      <div className="flex w-1/3 flex-col justify-center text-2xl">
+        <p className="flex h-20 items-center justify-center">Results</p>
 
-        <div className="flex flex-col">
-          <div className="flex h-32 w-full flex-col items-center justify-center border-b-2 border-gray-200">
+        <div className="flex flex-col items-center">
+          <div className="flex h-32 w-32 flex-col items-center justify-center">
             <p>{takeoffTime}s</p>
-            <p>Takeoff:</p>
+            <p>Takeoff</p>
           </div>
-          <div className="flex h-32 w-full flex-col items-center justify-center border-b-2 border-gray-200">
+          <div className="flex h-32 w-32 flex-col items-center justify-center">
             <p>{landingTime}s</p>
-            <p>Landing: </p>
+            <p>Landing</p>
           </div>
-          <div className="flex h-32 w-full flex-col items-center justify-center border-b-2 border-gray-200">
+          <div className="flex h-32 w-32 flex-col items-center justify-center">
+            <p>{landingTime - takeoffTime}s</p>
+            <p>Flight Time</p>
+          </div>
+          <div className="flex h-32 w-32 flex-col items-center justify-center">
             <p>{vertical}"</p>
-            <p>Vertical Jump: </p>
+            <p>Vertical Jump</p>
           </div>
         </div>
       </div>

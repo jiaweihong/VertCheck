@@ -3,16 +3,16 @@ import React from 'react'
 
 export default function Header() {
   return (
-    <ul className="flex h-16 items-center justify-between bg-[#F2545B] px-16 text-xl text-[#F3F7F0]">
-      <li className="hover:text-[#1ECBE1]">
+    <ul className="flex h-20 items-center justify-between bg-[#CD2444] px-16 text-lg text-[#FFFFFF]">
+      <li className="text-2xl">
         <Link href="/">VertCheck</Link>
       </li>
 
       <div className="flex">
-        <li className="pl-8 hover:text-[#1ECBE1]">
+        <li className="pl-8 ">
           <Link href="/calculate-vertical">Calculate My Vertical</Link>
         </li>
-        <li className="pl-8 hover:text-[#1ECBE1]">
+        <li className="pl-8 ">
           <Link href="/faq">FAQ</Link>
         </li>
       </div>
