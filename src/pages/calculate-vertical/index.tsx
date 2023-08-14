@@ -1,24 +1,42 @@
 import React, { ChangeEvent, useRef, useState } from 'react'
+import { MoonLoader } from 'react-spinners'
 
 export default function calculateVertical() {
   const [videoPlayer, setVideoPlayerSrc] = useState('')
   const [isFpsCalculated, setIsFpsCalculated] = useState(false)
+  const [isVideoUploading, setIsVideoUploading] = useState(false)
+  const [videoTitle, setVideoTitle] = useState('')
   const [takeoffTime, setTakeoffTime] = useState(0)
   const [landingTime, setLandingTime] = useState(0)
   const [vertical, setVertical] = useState(0)
-
   const [videoFps, setVideoFps] = useState(0)
 
   const videoPlayerRef = useRef<HTMLVideoElement | null>(null)
+  const videoPlayerForFpsRef = useRef<HTMLVideoElement | null>(null)
+
+  function resetStates() {
+    setVideoPlayerSrc('')
+    setIsFpsCalculated(false)
+    setIsVideoUploading(false)
+    setVideoTitle('')
+    setTakeoffTime(0)
+    setLandingTime(0)
+    setVertical(0)
+    setVideoFps(0)
+  }
 
   function uploadVideoHandler(e: ChangeEvent<HTMLInputElement>) {
+    resetStates()
+
     const selectedFiles = e.target.files
 
-    if (selectedFiles) {
+    if (selectedFiles && selectedFiles.length > 0) {
       const video = selectedFiles[0]
+      setVideoTitle(video.name)
       const url = URL.createObjectURL(video)
 
       setVideoPlayerSrc(url)
+      setIsVideoUploading(true)
     }
   }
 
@@ -31,13 +49,13 @@ export default function calculateVertical() {
     let maxTick: number = 100
     let timeDiffPerFrameArr: number[] = []
 
-    if (!videoPlayerRef.current) {
+    if (!videoPlayerForFpsRef.current) {
       return
     }
 
-    videoPlayerRef.current.play()
+    videoPlayerForFpsRef.current.play()
 
-    videoPlayerRef.current.requestVideoFrameCallback((now, metadata) => {
+    videoPlayerForFpsRef.current.requestVideoFrameCallback((now, metadata) => {
       appendTimeDiffPerFrameToArr(
         now,
         metadata,
@@ -64,14 +82,14 @@ export default function calculateVertical() {
     // diff = the avg time diff per frame
     let timeDiffPerFrame = media_time_diff / frame_num_diff
 
-    if (!videoPlayerRef.current) {
+    if (!videoPlayerForFpsRef.current) {
       return
     }
 
     if (
       timeDiffPerFrame &&
       timeDiffPerFrameArr.length < maxTick &&
-      videoPlayerRef.current.playbackRate === 1 &&
+      videoPlayerForFpsRef.current.playbackRate === 1 &&
       document.hasFocus()
     ) {
       timeDiffPerFrameArr.push(timeDiffPerFrame)
@@ -79,14 +97,15 @@ export default function calculateVertical() {
       let fps = Math.round(1 / calAvgTimeDiffPerFrame(timeDiffPerFrameArr))
       setVideoFps(fps)
       setIsFpsCalculated(true)
-      videoPlayerRef.current.pause()
+      setIsVideoUploading(false)
+      videoPlayerForFpsRef.current.pause()
       return
     }
 
     lastMediaTime = metadata.mediaTime
     lastFrameNumber = metadata.presentedFrames
 
-    videoPlayerRef.current.requestVideoFrameCallback((now, metadata) => {
+    videoPlayerForFpsRef.current.requestVideoFrameCallback((now, metadata) => {
       appendTimeDiffPerFrameToArr(
         now,
         metadata,
@@ -151,75 +170,109 @@ export default function calculateVertical() {
 
   return (
     <div className="flex">
-      <div>
-        <input
-          type="file"
-          accept="video/*"
-          onChange={(e) => uploadVideoHandler(e)}
-        />
+      <div className="flex w-2/3 flex-col">
+        <div className="flex items-center py-4">
+          <input
+            id="inputVideoBtn"
+            type="file"
+            accept="video/*"
+            className="hidden"
+            onChange={(e) => uploadVideoHandler(e)}
+          />
+          <label
+            className="mr-4 rounded border border-blue-500 bg-transparent px-4 py-2 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white "
+            htmlFor="inputVideoBtn"
+          >
+            Upload Video
+          </label>
+        </div>
 
-        <p>fps: {videoFps}</p>
+        <div className="flex justify-between">
+          <p>Title: {videoTitle}</p>
+          <p>fps: {videoFps}</p>
+        </div>
 
-        <video
-          className="h-96 w-96"
-          onCanPlay={getFpsOfVideo}
-          src={videoPlayer}
-          ref={videoPlayerRef}
-          controls
-        >
-          Your browser does not support the video tag.
-        </video>
+        <div className="flex h-[500px] w-full flex-col items-center justify-center">
+          <video
+            className="hidden"
+            onCanPlay={getFpsOfVideo}
+            src={videoPlayer}
+            ref={videoPlayerForFpsRef}
+            muted={true}
+            controls
+          >
+            Your browser does not support the video tag.
+          </video>
+
+          {isVideoUploading && (
+            <MoonLoader
+              color="#306fe6"
+              loading={isVideoUploading}
+              size={150}
+            />
+          )}
+          {!isVideoUploading && (
+            <video
+              className="h-full w-full"
+              src={videoPlayer}
+              ref={videoPlayerRef}
+              controls
+            >
+              Your browser does not support the video tag.
+            </video>
+          )}
+        </div>
+
+        <div className="flex justify-between py-4 text-lg">
+          <button
+            className="rounded border border-blue-500 bg-transparent px-4 py-2 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white"
+            onClick={() => {
+              nextFrameHandler()
+            }}
+          >
+            Next frame
+          </button>
+
+          <button
+            className="rounded border border-blue-500 bg-transparent px-4 py-2 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white"
+            onClick={() => {
+              previousFrameHandler()
+            }}
+          >
+            Previous frame
+          </button>
+
+          <button
+            className="rounded border border-blue-500 bg-transparent px-4 py-2 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white"
+            onClick={() => {
+              takeoffHandler()
+            }}
+          >
+            Takeoff
+          </button>
+
+          <button
+            className="rounded border border-blue-500 bg-transparent px-4 py-2 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white"
+            onClick={() => {
+              landingHandler()
+            }}
+          >
+            Landing
+          </button>
+
+          <button
+            className="rounded border border-blue-500 bg-transparent px-4 py-2 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white"
+            onClick={() => {
+              calculateVerticalHandler()
+            }}
+          >
+            Calculate
+          </button>
+        </div>
       </div>
 
-      <div className="flex flex-col pt-20">
-        <button
-          className="h-14 bg-yellow-500 text-lg font-bold uppercase hover:bg-yellow-600"
-          onClick={() => {
-            nextFrameHandler()
-          }}
-        >
-          Next frame
-        </button>
-
-        <button
-          className="h-14  bg-yellow-500 text-lg font-bold uppercase hover:bg-yellow-600"
-          onClick={() => {
-            previousFrameHandler()
-          }}
-        >
-          Previous frame
-        </button>
-
-        <button
-          className="h-14 bg-yellow-500 text-lg font-bold uppercase hover:bg-yellow-600"
-          onClick={() => {
-            takeoffHandler()
-          }}
-        >
-          Takeoff
-        </button>
-
-        <button
-          className="h-14 bg-yellow-500 text-lg font-bold uppercase hover:bg-yellow-600"
-          onClick={() => {
-            landingHandler()
-          }}
-        >
-          landing
-        </button>
-
-        <button
-          className="h-14 bg-yellow-500 text-lg font-bold uppercase hover:bg-yellow-600"
-          onClick={() => {
-            calculateVerticalHandler()
-          }}
-        >
-          Calculate vertical
-        </button>
-      </div>
-
-      <div className="flex w-96 flex-col items-center text-2xl">
-        <p>Statistic</p>
+      <div className="flex w-1/3 flex-col items-center text-2xl">
+        <p>Calculation</p>
 
         <p>Takeoff: {takeoffTime}s</p>
         <p>Landing: {landingTime}s</p>
