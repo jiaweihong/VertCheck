@@ -169,7 +169,7 @@ export default function calculateVertical() {
   }
 
   return (
-    <div className="mt-8 flex text-[#19323C]">
+    <div className="my-8 flex text-[#19323C]">
       <div className="mr-8 flex w-[75%] flex-col rounded bg-white p-8">
         <div className="flex items-center py-4">
           <input
@@ -300,11 +300,3 @@ export default function calculateVertical() {
     </div>
   )
 }
-
-/**
- * Workflow:
- * User uploads video file
- * Script will run to play video in the background and calculate the framerate of the video
- * While calculating framerate it does a spinner
- * On complete it will display video output, with start of jump btn, end of jump btn, forward 1 frame, go back 1 frame
- */

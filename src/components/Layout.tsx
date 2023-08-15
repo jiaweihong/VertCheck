@@ -1,5 +1,6 @@
 import React from 'react'
 import Header from './Header'
+import Footer from './Footer'
 
 export default function Layout(props: any) {
   const { children } = props
@@ -9,6 +10,8 @@ export default function Layout(props: any) {
       <Header />
 
       <main className="flex-1 bg-[#f1f0f0] px-32">{children}</main>
+
+      <Footer />
     </div>
   )
 }
