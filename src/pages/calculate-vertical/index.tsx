@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useRef, useState } from 'react'
-import { MoonLoader } from 'react-spinners'
+import { SquareLoader } from 'react-spinners'
 
 export default function calculateVertical() {
   const [videoPlayer, setVideoPlayerSrc] = useState('')
@@ -169,8 +169,8 @@ export default function calculateVertical() {
   }
 
   return (
-    <div className="flex text-[#19323C]">
-      <div className="flex w-2/3 flex-col">
+    <div className="mt-8 flex text-[#19323C]">
+      <div className="mr-8 flex w-[75%] flex-col rounded bg-white p-8">
         <div className="flex items-center py-4">
           <input
             id="inputVideoBtn"
@@ -188,7 +188,7 @@ export default function calculateVertical() {
         </div>
 
         <div className="flex justify-between text-2xl">
-          <p>Title: {videoTitle}</p>
+          <p>Video: {videoTitle}</p>
           <p>fps: {videoFps}</p>
         </div>
 
@@ -205,8 +205,8 @@ export default function calculateVertical() {
           </video>
 
           {isVideoUploading && (
-            <MoonLoader
-              color="#222660"
+            <SquareLoader
+              color="#CD2444"
               loading={isVideoUploading}
               size={150}
             />
@@ -223,9 +223,9 @@ export default function calculateVertical() {
           )}
         </div>
 
-        <div className="flex justify-between py-4 text-lg">
+        <div className="flex flex-wrap justify-between py-4 text-lg">
           <button
-            className="rounded border border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:border-transparent hover:bg-[#222660] hover:text-white"
+            className="min-w-[150px] rounded border border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:border-transparent hover:bg-[#222660] hover:text-white"
             onClick={() => {
               nextFrameHandler()
             }}
@@ -234,7 +234,7 @@ export default function calculateVertical() {
           </button>
 
           <button
-            className="rounded border border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:border-transparent hover:bg-[#222660] hover:text-white"
+            className="min-w-[150px] rounded border border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:border-transparent hover:bg-[#222660] hover:text-white"
             onClick={() => {
               previousFrameHandler()
             }}
@@ -243,7 +243,7 @@ export default function calculateVertical() {
           </button>
 
           <button
-            className="rounded border border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:border-transparent hover:bg-[#222660] hover:text-white"
+            className="min-w-[150px] rounded border border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:border-transparent hover:bg-[#222660] hover:text-white"
             onClick={() => {
               takeoffHandler()
             }}
@@ -252,7 +252,7 @@ export default function calculateVertical() {
           </button>
 
           <button
-            className="rounded border border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:border-transparent hover:bg-[#222660] hover:text-white"
+            className="min-w-[150px] rounded border border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:border-transparent hover:bg-[#222660] hover:text-white"
             onClick={() => {
               landingHandler()
             }}
@@ -261,7 +261,7 @@ export default function calculateVertical() {
           </button>
 
           <button
-            className="rounded border border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:border-transparent hover:bg-[#222660] hover:text-white"
+            className="min-w-[150px] rounded border border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:border-transparent hover:bg-[#222660] hover:text-white"
             onClick={() => {
               calculateVerticalHandler()
             }}
@@ -271,7 +271,7 @@ export default function calculateVertical() {
         </div>
       </div>
 
-      <div className="flex w-1/3 flex-col justify-center text-2xl">
+      <div className="flex w-[25%] flex-col justify-center rounded bg-white p-8 text-2xl">
         <p className="flex h-20 items-center justify-center text-3xl">
           Results
         </p>
@@ -279,19 +279,21 @@ export default function calculateVertical() {
         <div className="flex flex-col items-center">
           <div className="flex h-32 w-32 flex-col items-center justify-center">
             <p>{takeoffTime}s</p>
-            <p>Takeoff</p>
+            <p className="text-[#CD2444]">Takeoff</p>
           </div>
           <div className="flex h-32 w-32 flex-col items-center justify-center">
             <p>{landingTime}s</p>
-            <p>Landing</p>
+            <p className="text-[#CD2444]">Landing</p>
           </div>
           <div className="flex h-32 w-32 flex-col items-center justify-center">
-            <p>{landingTime - takeoffTime}s</p>
-            <p>Flight Time</p>
+            <p>
+              {landingTime - takeoffTime > 0 ? landingTime - takeoffTime : 0}s
+            </p>
+            <p className="text-[#CD2444]">Flight Time</p>
           </div>
           <div className="flex h-32 w-32 flex-col items-center justify-center">
             <p>{vertical}"</p>
-            <p>Vertical Jump</p>
+            <p className="text-[#CD2444]">Vertical Jump</p>
           </div>
         </div>
       </div>

@@ -8,7 +8,7 @@ export default function Layout(props: any) {
     <div className="flex min-h-screen flex-col bg-[#FFFFFF]">
       <Header />
 
-      <main className="px-32">{children}</main>
+      <main className="flex-1 bg-[#f1f0f0] px-32">{children}</main>
     </div>
   )
 }
