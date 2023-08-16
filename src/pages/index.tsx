@@ -38,7 +38,7 @@ export default function Home() {
         </h2>
 
         <div className="flex w-[75%] flex-wrap justify-around">
-          <div className="w-[200px] rounded-2xl border border-gray-300 px-5 py-10 text-center shadow">
+          <div className="w-[250px] rounded-2xl border border-gray-300 px-16 py-10 text-center shadow">
             <FontAwesomeIcon
               icon={faUpload}
               className="pb-4 text-3xl text-[#CD2444]"
@@ -49,7 +49,7 @@ export default function Home() {
             <p className="text-gray-700">Upload your video onto the website</p>
           </div>
 
-          <div className="w-[200px] rounded-2xl border border-gray-300 px-5 py-10 text-center shadow">
+          <div className="w-[250px] rounded-2xl border border-gray-300 px-16 py-10 text-center shadow">
             <FontAwesomeIcon
               icon={faMarker}
               className="pb-4 text-3xl text-[#CD2444]"
@@ -59,7 +59,7 @@ export default function Home() {
             <p className="text-gray-700">Mark the start and end of the jump</p>
           </div>
 
-          <div className="w-[200px] rounded-2xl border border-gray-300 px-5 py-10 text-center shadow">
+          <div className="w-[250px] rounded-2xl border border-gray-300 px-16 py-10 text-center shadow">
             <FontAwesomeIcon
               icon={faCalculator}
               className="pb-4 text-3xl text-[#CD2444]"

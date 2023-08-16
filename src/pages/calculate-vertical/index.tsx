@@ -168,6 +168,10 @@ export default function calculateVertical() {
     return Math.round(inches * 10) / 10
   }
 
+  function round2Dp(number: number) {
+    return Math.round(number * 100) / 100
+  }
+
   return (
     <div className="my-8 flex text-[#19323C]">
       <div className="mr-8 flex w-[75%] flex-col rounded bg-white p-8">
@@ -227,15 +231,6 @@ export default function calculateVertical() {
           <button
             className="min-w-[150px] rounded border border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:border-transparent hover:bg-[#222660] hover:text-white"
             onClick={() => {
-              nextFrameHandler()
-            }}
-          >
-            Next frame
-          </button>
-
-          <button
-            className="min-w-[150px] rounded border border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:border-transparent hover:bg-[#222660] hover:text-white"
-            onClick={() => {
               previousFrameHandler()
             }}
           >
@@ -263,6 +258,15 @@ export default function calculateVertical() {
           <button
             className="min-w-[150px] rounded border border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:border-transparent hover:bg-[#222660] hover:text-white"
             onClick={() => {
+              nextFrameHandler()
+            }}
+          >
+            Next frame
+          </button>
+
+          <button
+            className="min-w-[150px] rounded border border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:border-transparent hover:bg-[#222660] hover:text-white"
+            onClick={() => {
               calculateVerticalHandler()
             }}
           >
@@ -278,16 +282,19 @@ export default function calculateVertical() {
 
         <div className="flex flex-col items-center">
           <div className="flex h-32 w-32 flex-col items-center justify-center">
-            <p>{takeoffTime}s</p>
+            <p>{round2Dp(takeoffTime)}s</p>
             <p className="text-[#CD2444]">Takeoff</p>
           </div>
           <div className="flex h-32 w-32 flex-col items-center justify-center">
-            <p>{landingTime}s</p>
+            <p>{round2Dp(landingTime)}s</p>
             <p className="text-[#CD2444]">Landing</p>
           </div>
           <div className="flex h-32 w-32 flex-col items-center justify-center">
             <p>
-              {landingTime - takeoffTime > 0 ? landingTime - takeoffTime : 0}s
+              {landingTime - takeoffTime > 0
+                ? round2Dp(landingTime - takeoffTime)
+                : 0}
+              s
             </p>
             <p className="text-[#CD2444]">Flight Time</p>
           </div>
