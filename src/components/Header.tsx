@@ -15,7 +15,7 @@ export default function Header() {
       </li>
 
       <div className="flex items-center justify-center">
-        <li className="px8 p- hover:cursor-pointe rounded bg-[#222660] p-2">
+        <li className="">
           <Link href="/calculate-vertical">Calculate My Vertical</Link>
         </li>
         <li className="pl-8 ">
