@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function Footer() {
   return (
-    <div className="flex flex-1 justify-around border-t-2 border-[#CD2444] bg-[#FFFFFF] px-16 py-4 text-[#19323C] ">
+    <div className="flex flex-wrap justify-around border-t-2 border-[#CD2444] bg-[#FFFFFF] px-16 py-4 text-[#19323C] ">
       <div className="w-[200px]">
         <Link
           href="/"
@@ -37,15 +37,17 @@ export default function Footer() {
       </div>
 
       <div className="w-[200px]">
-        <p className="text-xl text-[#CD2444]">Contact Us</p>
+        <p className="text-xl text-[#CD2444]">Contact Us (If there are bugs)</p>
 
         <ul>
           <li>
-            <FontAwesomeIcon
-              className="pr-2"
-              icon={faEnvelope}
-            />
-            vertcheck@gmail.com
+            <a href="mailto: vertcheck@gmail.com">
+              <FontAwesomeIcon
+                className="pr-2"
+                icon={faEnvelope}
+              />
+              vertcheck@gmail.com
+            </a>
           </li>
         </ul>
       </div>
