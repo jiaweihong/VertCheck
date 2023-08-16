@@ -173,7 +173,7 @@ export default function calculateVertical() {
   }
 
   return (
-    <div className="my-8 flex text-[#19323C]">
+    <div className="my-8 flex px-32 text-[#19323C]">
       <div className="mr-8 flex w-[75%] flex-col rounded bg-white p-8">
         <div className="flex items-center py-4">
           <input
