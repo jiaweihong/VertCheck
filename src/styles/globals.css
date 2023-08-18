@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Bebas Neue';
+  src: url('../../public/fonts/BebasNeue.ttf');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('../../public/fonts/Roboto-Regular.ttf');
+}
+
 * {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }

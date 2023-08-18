@@ -280,16 +280,16 @@ export default function calculateVertical() {
           Results
         </p>
 
-        <div className="flex flex-col items-center">
-          <div className="flex h-32 w-32 flex-col items-center justify-center">
+        <div className="flex flex-col items-center text-center">
+          <div className="flex h-32  flex-col items-center justify-center">
             <p>{round2Dp(takeoffTime)}s</p>
             <p className="text-[#CD2444]">Takeoff</p>
           </div>
-          <div className="flex h-32 w-32 flex-col items-center justify-center">
+          <div className="flex h-32  flex-col items-center justify-center">
             <p>{round2Dp(landingTime)}s</p>
             <p className="text-[#CD2444]">Landing</p>
           </div>
-          <div className="flex h-32 w-32 flex-col items-center justify-center">
+          <div className="flex h-32  flex-col items-center justify-center">
             <p>
               {landingTime - takeoffTime > 0
                 ? round2Dp(landingTime - takeoffTime)
@@ -298,7 +298,7 @@ export default function calculateVertical() {
             </p>
             <p className="text-[#CD2444]">Flight Time</p>
           </div>
-          <div className="flex h-32 w-32 flex-col items-center justify-center">
+          <div className="flex h-32  flex-col items-center justify-center">
             <p>{vertical}"</p>
             <p className="text-[#CD2444]">Vertical Jump</p>
           </div>

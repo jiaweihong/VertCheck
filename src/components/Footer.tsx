@@ -9,7 +9,7 @@ export default function Footer() {
       <div className="w-[200px]">
         <Link
           href="/"
-          className="text-2xl text-[#CD2444]"
+          className="font-bebasNeue text-2xl text-[#CD2444]"
         >
           <FontAwesomeIcon
             className="pr-2"

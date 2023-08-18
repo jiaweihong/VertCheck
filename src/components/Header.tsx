@@ -11,7 +11,12 @@ export default function Header() {
           className="pr-2"
           icon={faRulerVertical}
         />
-        <Link href="/">VertCheck</Link>
+        <Link
+          href="/"
+          className="font-bebasNeue"
+        >
+          VertCheck
+        </Link>
       </li>
 
       <div className="flex items-center justify-center">

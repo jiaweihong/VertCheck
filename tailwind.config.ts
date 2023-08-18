@@ -10,7 +10,8 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        bebasNeue: ['Bebas Nueue', 'sans-serif'],
+        bebasNeue: ['Bebas Neue'],
+        roboto: ['Roboto'],
       },
     },
   },

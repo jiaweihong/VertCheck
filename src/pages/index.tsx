@@ -17,7 +17,7 @@ export default function Home() {
         />
 
         <div className="absolute text-center">
-          <h1 className="text-8xl text-[#CD2444]">
+          <h1 className="font-bebasNeue text-8xl text-[#CD2444]">
             Find out how high you jump
           </h1>
 
@@ -44,7 +44,7 @@ export default function Home() {
               className="pb-4 text-3xl text-[#CD2444]"
             />
 
-            <h4 className="text-2xl">step 1</h4>
+            <h4 className="text-2xl">Step 1</h4>
 
             <p className="text-gray-700">Upload your video onto the website</p>
           </div>
@@ -54,7 +54,7 @@ export default function Home() {
               icon={faMarker}
               className="pb-4 text-3xl text-[#CD2444]"
             />
-            <h4 className="text-2xl">step 2</h4>
+            <h4 className="text-2xl">Step 2</h4>
 
             <p className="text-gray-700">Mark the start and end of the jump</p>
           </div>
@@ -65,7 +65,7 @@ export default function Home() {
               className="pb-4 text-3xl text-[#CD2444]"
             />
 
-            <h4 className="text-2xl">step 3</h4>
+            <h4 className="text-2xl">Step 3</h4>
 
             <p className="text-gray-700">
               Press calculate and get your results
