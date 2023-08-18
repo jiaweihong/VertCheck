@@ -26,7 +26,7 @@ export default function Home() {
             of your vertical jump
           </p>
 
-          <button className="rounded bg-[#CD2444] px-8 py-4 text-xl text-white hover:cursor-pointer">
+          <button className="rounded bg-[#3e45a8] px-8 py-4 text-xl text-white hover:cursor-pointer">
             <Link href="/calculate-vertical">Calculate My Vertical</Link>
           </button>
         </div>
