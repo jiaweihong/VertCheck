@@ -13,7 +13,7 @@ export default function Document() {
           href="https://fonts.gstatic.com"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@100;400;500;700&family=Outfit:wght@400;600;700&family=Roboto:wght@400;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=League+Spartan:wght@400;700&display=swap"
           rel="stylesheet"
         />
       </Head>

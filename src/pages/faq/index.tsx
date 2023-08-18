@@ -39,15 +39,6 @@ const accordionTheme: CustomFlowbiteTheme = {
   },
 }
 
-const btnTheme: CustomFlowbiteTheme = {
-  button: {
-    color: {
-      primary: 'bg-red-500 hover:bg-red-600',
-      blue: 'bg-blue-500  hover:bg-red-600',
-    },
-  },
-}
-
 export default function faq() {
   return (
     <div className="px-32 py-8">
@@ -57,7 +48,7 @@ export default function faq() {
           className="bg-white"
         >
           <Accordion.Panel>
-            <Accordion.Title>
+            <Accordion.Title className="text-2xl">
               How does the app calculate your jump height?
             </Accordion.Title>
             <Accordion.Content>
@@ -70,7 +61,9 @@ export default function faq() {
             </Accordion.Content>
           </Accordion.Panel>
           <Accordion.Panel>
-            <Accordion.Title>How accurate is this app?</Accordion.Title>
+            <Accordion.Title className="text-2xl">
+              How accurate is this app?
+            </Accordion.Title>
             <Accordion.Content>
               <p>
                 The equation above does not take into account air resistance
@@ -94,7 +87,9 @@ export default function faq() {
             </Accordion.Content>
           </Accordion.Panel>
           <Accordion.Panel>
-            <Accordion.Title>Why is the app not working?</Accordion.Title>
+            <Accordion.Title className="text-2xl">
+              Why is the app not working?
+            </Accordion.Title>
             <Accordion.Content>
               <p>
                 If there are any bugs / problems with the website. Please send
