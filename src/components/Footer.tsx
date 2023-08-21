@@ -37,7 +37,7 @@ export default function Footer() {
       </div>
 
       <div className="w-[200px]">
-        <p className="text-xl text-[#222660]">Contact Us (If there are bugs)</p>
+        <p className="text-xl text-[#222660]">Contact Us</p>
 
         <ul>
           <li>

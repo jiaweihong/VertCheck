@@ -173,136 +173,163 @@ export default function calculateVertical() {
   }
 
   return (
-    <div className="my-8 flex px-32 text-[#19323C]">
-      <div className="mr-8 flex w-[75%] flex-col rounded bg-white p-8">
-        <div className="flex items-center py-4">
-          <input
-            id="inputVideoBtn"
-            type="file"
-            accept="video/*"
-            className="hidden"
-            onChange={(e) => uploadVideoHandler(e)}
-          />
-          <label
-            className="mr-4 rounded border-2 border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:cursor-pointer hover:border-transparent hover:bg-[#222660] hover:text-white"
-            htmlFor="inputVideoBtn"
-          >
-            Upload Video
-          </label>
-        </div>
-
-        <div className="flex justify-between text-2xl">
-          <p>Video: {videoTitle}</p>
-          <p>fps: {videoFps}</p>
-        </div>
-
-        <div className="flex h-[500px] w-full flex-col items-center justify-center">
-          <video
-            className="hidden"
-            onCanPlay={getFpsOfVideo}
-            src={videoPlayer}
-            ref={videoPlayerForFpsRef}
-            muted={true}
-            controls
-          >
-            Your browser does not support the video tag.
-          </video>
-
-          {isVideoUploading && (
-            <SquareLoader
-              color="#CD2444"
-              loading={isVideoUploading}
-              size={150}
+    <div className="my-8 flex-col  px-32 text-[#19323C]">
+      <div className="flex pb-10">
+        <div className="mr-8 flex w-[75%] flex-col rounded bg-white p-8">
+          <div className="flex items-center py-4">
+            <input
+              id="inputVideoBtn"
+              type="file"
+              accept="video/*"
+              className="hidden"
+              onChange={(e) => uploadVideoHandler(e)}
             />
-          )}
-          {!isVideoUploading && (
+            <label
+              className="mr-4 rounded border-2 border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:cursor-pointer hover:border-transparent hover:bg-[#222660] hover:text-white"
+              htmlFor="inputVideoBtn"
+            >
+              Upload Video
+            </label>
+          </div>
+
+          <div className="flex justify-between text-2xl">
+            <p>Video: {videoTitle}</p>
+            <p>fps: {videoFps}</p>
+          </div>
+
+          <div className="flex h-[500px] w-full flex-col items-center justify-center">
             <video
-              className="h-full w-full"
+              className="hidden"
+              onCanPlay={getFpsOfVideo}
               src={videoPlayer}
-              ref={videoPlayerRef}
+              ref={videoPlayerForFpsRef}
+              muted={true}
               controls
             >
               Your browser does not support the video tag.
             </video>
-          )}
+
+            {isVideoUploading && (
+              <SquareLoader
+                color="#CD2444"
+                loading={isVideoUploading}
+                size={150}
+              />
+            )}
+            {!isVideoUploading && (
+              <video
+                className="h-full w-full"
+                src={videoPlayer}
+                ref={videoPlayerRef}
+                controls
+              >
+                Your browser does not support the video tag.
+              </video>
+            )}
+          </div>
+
+          <div className="flex flex-wrap justify-between py-4 text-lg">
+            <button
+              className="min-w-[150px] rounded border border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:border-transparent hover:bg-[#222660] hover:text-white"
+              onClick={() => {
+                previousFrameHandler()
+              }}
+            >
+              Previous frame
+            </button>
+
+            <button
+              className="min-w-[150px] rounded border border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:border-transparent hover:bg-[#222660] hover:text-white"
+              onClick={() => {
+                takeoffHandler()
+              }}
+            >
+              Takeoff
+            </button>
+
+            <button
+              className="min-w-[150px] rounded border border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:border-transparent hover:bg-[#222660] hover:text-white"
+              onClick={() => {
+                landingHandler()
+              }}
+            >
+              Landing
+            </button>
+
+            <button
+              className="min-w-[150px] rounded border border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:border-transparent hover:bg-[#222660] hover:text-white"
+              onClick={() => {
+                nextFrameHandler()
+              }}
+            >
+              Next frame
+            </button>
+
+            <button
+              className="min-w-[150px] rounded border border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:border-transparent hover:bg-[#222660] hover:text-white"
+              onClick={() => {
+                calculateVerticalHandler()
+              }}
+            >
+              Calculate
+            </button>
+          </div>
         </div>
 
-        <div className="flex flex-wrap justify-between py-4 text-lg">
-          <button
-            className="min-w-[150px] rounded border border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:border-transparent hover:bg-[#222660] hover:text-white"
-            onClick={() => {
-              previousFrameHandler()
-            }}
-          >
-            Previous frame
-          </button>
+        <div className="flex w-[25%] flex-col justify-center rounded bg-white p-8 text-2xl">
+          <p className="flex h-20 items-center justify-center text-3xl">
+            Results
+          </p>
 
-          <button
-            className="min-w-[150px] rounded border border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:border-transparent hover:bg-[#222660] hover:text-white"
-            onClick={() => {
-              takeoffHandler()
-            }}
-          >
-            Takeoff
-          </button>
-
-          <button
-            className="min-w-[150px] rounded border border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:border-transparent hover:bg-[#222660] hover:text-white"
-            onClick={() => {
-              landingHandler()
-            }}
-          >
-            Landing
-          </button>
-
-          <button
-            className="min-w-[150px] rounded border border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:border-transparent hover:bg-[#222660] hover:text-white"
-            onClick={() => {
-              nextFrameHandler()
-            }}
-          >
-            Next frame
-          </button>
-
-          <button
-            className="min-w-[150px] rounded border border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:border-transparent hover:bg-[#222660] hover:text-white"
-            onClick={() => {
-              calculateVerticalHandler()
-            }}
-          >
-            Calculate
-          </button>
+          <div className="flex flex-col items-center text-center">
+            <div className="flex h-32  flex-col items-center justify-center">
+              <p>{round2Dp(takeoffTime)}s</p>
+              <p className="text-[#CD2444]">Takeoff</p>
+            </div>
+            <div className="flex h-32  flex-col items-center justify-center">
+              <p>{round2Dp(landingTime)}s</p>
+              <p className="text-[#CD2444]">Landing</p>
+            </div>
+            <div className="flex h-32  flex-col items-center justify-center">
+              <p>
+                {landingTime - takeoffTime > 0
+                  ? round2Dp(landingTime - takeoffTime)
+                  : 0}
+                s
+              </p>
+              <p className="text-[#CD2444]">Flight Time</p>
+            </div>
+            <div className="flex h-32  flex-col items-center justify-center">
+              <p>{vertical}"</p>
+              <p className="text-[#CD2444]">Vertical Jump</p>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="flex w-[25%] flex-col justify-center rounded bg-white p-8 text-2xl">
-        <p className="flex h-20 items-center justify-center text-3xl">
-          Results
-        </p>
+      <div className="bg-white p-8">
+        <h2 className="pb-4 text-2xl text-[#CD2444]">
+          How to calculate your vertical jump height:
+        </h2>
 
-        <div className="flex flex-col items-center text-center">
-          <div className="flex h-32  flex-col items-center justify-center">
-            <p>{round2Dp(takeoffTime)}s</p>
-            <p className="text-[#CD2444]">Takeoff</p>
-          </div>
-          <div className="flex h-32  flex-col items-center justify-center">
-            <p>{round2Dp(landingTime)}s</p>
-            <p className="text-[#CD2444]">Landing</p>
-          </div>
-          <div className="flex h-32  flex-col items-center justify-center">
-            <p>
-              {landingTime - takeoffTime > 0
-                ? round2Dp(landingTime - takeoffTime)
-                : 0}
-              s
-            </p>
-            <p className="text-[#CD2444]">Flight Time</p>
-          </div>
-          <div className="flex h-32  flex-col items-center justify-center">
-            <p>{vertical}"</p>
-            <p className="text-[#CD2444]">Vertical Jump</p>
-          </div>
-        </div>
+        <ol className="list-outside list-decimal pl-5 text-xl">
+          <li className="pb-1">
+            Upload a video that is a minimum of 5 seconds. This allows the
+            software to count the frames per second (fps) of the video to allow
+            frame by frame skipping.
+          </li>
+          <li className="pb-1">
+            Play the video and find the point where your feet just leaves the
+            ground, then press the 'Takeoff' button.
+          </li>
+          <li className="pb-1">
+            When your foot touches the ground again, press the 'Landing' button.
+          </li>
+          <li className="pb-1">
+            Press the 'Calclate' button to get your vertical jump height in
+            inches.
+          </li>
+        </ol>
       </div>
     </div>
   )
