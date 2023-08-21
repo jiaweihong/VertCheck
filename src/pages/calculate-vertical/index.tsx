@@ -194,7 +194,7 @@ export default function calculateVertical() {
 
           <div className="flex justify-between text-2xl">
             <p>Video: {videoTitle}</p>
-            <p>fps: {videoFps}</p>
+            <p>FPS: {videoFps}</p>
           </div>
 
           <div className="flex h-[500px] w-full flex-col items-center justify-center">
@@ -276,10 +276,10 @@ export default function calculateVertical() {
           </div>
         </div>
 
-        <div className="flex w-[25%] flex-col justify-center rounded bg-white p-8 text-2xl">
-          <p className="flex h-20 items-center justify-center text-3xl">
+        <div className="flex w-[25%] flex-col items-center justify-center rounded bg-white p-8 text-2xl">
+          <h2 className="border-b-2 border-[#CD2444] pb-2 text-center text-3xl">
             Results
-          </p>
+          </h2>
 
           <div className="flex flex-col items-center text-center">
             <div className="flex h-32  flex-col items-center justify-center">
