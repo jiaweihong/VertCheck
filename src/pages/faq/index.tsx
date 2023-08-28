@@ -8,7 +8,7 @@ import type { CustomFlowbiteTheme } from 'flowbite-react'
 const accordionTheme: CustomFlowbiteTheme = {
   accordion: {
     root: {
-      base: 'divide-y divide-[#CD2444]-200 border-[#CD2444]-200 dark:divide-[#CD2444]-700 dark:border-[#CD2444]-700',
+      base: 'divide-y w-[90%] max-w-[1400px] divide-[#CD2444]-200 border-[#CD2444]-200 dark:divide-[#CD2444]-700 dark:border-[#CD2444]-700',
       flush: {
         off: 'rounded-lg border',
         on: 'border-b',
@@ -30,7 +30,7 @@ const accordionTheme: CustomFlowbiteTheme = {
         off: '',
         on: 'bg-transparent dark:bg-transparent',
       },
-      heading: '',
+      heading: 'text-xl',
       open: {
         off: '',
         on: 'text-[#CD2444] bg-red-100 dark:bg-red-800 dark:text-white',
@@ -41,7 +41,7 @@ const accordionTheme: CustomFlowbiteTheme = {
 
 export default function faq() {
   return (
-    <div className="px-32 py-8">
+    <div className="flex justify-center py-5">
       <Flowbite theme={{ theme: accordionTheme }}>
         <Accordion
           collapseAll
