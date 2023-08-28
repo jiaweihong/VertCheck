@@ -332,13 +332,3 @@ export default function calculateVertical() {
     </div>
   )
 }
-
-/**
- * Right now, when the css is saying that everything is always flex col
- * but i need to make so then when it is lg and above then it brings the 2nd row to the first row
- * solution:
- * when lg
- *  set container to flex row
- *  set first 2 div to flex 1 1 70% and 1 1 30%
- *  set last div to flex 1 1 100%
- */
