@@ -173,141 +173,139 @@ export default function calculateVertical() {
   }
 
   return (
-    <div className="my-8 flex-col  px-32 text-[#19323C]">
-      <div className="flex pb-10">
-        <div className="mr-8 flex w-[75%] flex-col rounded bg-white p-8">
-          <div className="flex items-center py-4">
-            <input
-              id="inputVideoBtn"
-              type="file"
-              accept="video/*"
-              className="hidden"
-              onChange={(e) => uploadVideoHandler(e)}
+    <div className="flex flex-col items-center rounded bg-[#f1f0f0] py-10 text-[#19323C] lg:flex-row lg:flex-wrap lg:justify-center">
+      <div className="mb-8 flex min-h-[750px] w-[90%] flex-col bg-white p-8 lg:ml-[5%] lg:max-w-[1100px] lg:shrink lg:flex-grow lg:basis-[55%]">
+        <div className="flex items-center py-4">
+          <input
+            id="inputVideoBtn"
+            type="file"
+            accept="video/*"
+            className="hidden"
+            onChange={(e) => uploadVideoHandler(e)}
+          />
+          <label
+            className="mr-4 rounded border-2 border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:cursor-pointer hover:border-transparent hover:bg-[#222660] hover:text-white"
+            htmlFor="inputVideoBtn"
+          >
+            Upload Video
+          </label>
+        </div>
+
+        <div className="flex justify-between text-2xl">
+          <p>Video: {videoTitle}</p>
+          <p>FPS: {videoFps}</p>
+        </div>
+
+        <div className="flex h-[500px] w-full flex-col items-center justify-center">
+          <video
+            className="hidden"
+            onCanPlay={getFpsOfVideo}
+            src={videoPlayer}
+            ref={videoPlayerForFpsRef}
+            muted={true}
+            controls
+          >
+            Your browser does not support the video tag.
+          </video>
+
+          {isVideoUploading && (
+            <SquareLoader
+              color="#CD2444"
+              loading={isVideoUploading}
+              size={150}
             />
-            <label
-              className="mr-4 rounded border-2 border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:cursor-pointer hover:border-transparent hover:bg-[#222660] hover:text-white"
-              htmlFor="inputVideoBtn"
-            >
-              Upload Video
-            </label>
-          </div>
-
-          <div className="flex justify-between text-2xl">
-            <p>Video: {videoTitle}</p>
-            <p>FPS: {videoFps}</p>
-          </div>
-
-          <div className="flex h-[500px] w-full flex-col items-center justify-center">
+          )}
+          {!isVideoUploading && (
             <video
-              className="hidden"
-              onCanPlay={getFpsOfVideo}
+              className="h-full w-full"
               src={videoPlayer}
-              ref={videoPlayerForFpsRef}
-              muted={true}
+              ref={videoPlayerRef}
               controls
             >
               Your browser does not support the video tag.
             </video>
-
-            {isVideoUploading && (
-              <SquareLoader
-                color="#CD2444"
-                loading={isVideoUploading}
-                size={150}
-              />
-            )}
-            {!isVideoUploading && (
-              <video
-                className="h-full w-full"
-                src={videoPlayer}
-                ref={videoPlayerRef}
-                controls
-              >
-                Your browser does not support the video tag.
-              </video>
-            )}
-          </div>
-
-          <div className="flex flex-wrap justify-between py-4 text-lg">
-            <button
-              className="min-w-[150px] rounded border border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:border-transparent hover:bg-[#222660] hover:text-white"
-              onClick={() => {
-                previousFrameHandler()
-              }}
-            >
-              Previous frame
-            </button>
-
-            <button
-              className="min-w-[150px] rounded border border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:border-transparent hover:bg-[#222660] hover:text-white"
-              onClick={() => {
-                takeoffHandler()
-              }}
-            >
-              Takeoff
-            </button>
-
-            <button
-              className="min-w-[150px] rounded border border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:border-transparent hover:bg-[#222660] hover:text-white"
-              onClick={() => {
-                landingHandler()
-              }}
-            >
-              Landing
-            </button>
-
-            <button
-              className="min-w-[150px] rounded border border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:border-transparent hover:bg-[#222660] hover:text-white"
-              onClick={() => {
-                nextFrameHandler()
-              }}
-            >
-              Next frame
-            </button>
-
-            <button
-              className="min-w-[150px] rounded border border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:border-transparent hover:bg-[#222660] hover:text-white"
-              onClick={() => {
-                calculateVerticalHandler()
-              }}
-            >
-              Calculate
-            </button>
-          </div>
+          )}
         </div>
 
-        <div className="flex w-[25%] flex-col items-center justify-center rounded bg-white p-8 text-2xl">
-          <h2 className="border-b-2 border-[#CD2444] pb-2 text-center text-3xl">
-            Results
-          </h2>
+        <div className="flex flex-wrap justify-between bg-white py-4 text-lg">
+          <button
+            className="min-w-[150px] rounded border border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:border-transparent hover:bg-[#222660] hover:text-white"
+            onClick={() => {
+              previousFrameHandler()
+            }}
+          >
+            Previous frame
+          </button>
 
-          <div className="flex flex-col items-center text-center">
-            <div className="flex h-32  flex-col items-center justify-center">
-              <p>{round2Dp(takeoffTime)}s</p>
-              <p className="text-[#CD2444]">Takeoff</p>
-            </div>
-            <div className="flex h-32  flex-col items-center justify-center">
-              <p>{round2Dp(landingTime)}s</p>
-              <p className="text-[#CD2444]">Landing</p>
-            </div>
-            <div className="flex h-32  flex-col items-center justify-center">
-              <p>
-                {landingTime - takeoffTime > 0
-                  ? round2Dp(landingTime - takeoffTime)
-                  : 0}
-                s
-              </p>
-              <p className="text-[#CD2444]">Flight Time</p>
-            </div>
-            <div className="flex h-32  flex-col items-center justify-center">
-              <p>{vertical}"</p>
-              <p className="text-[#CD2444]">Vertical Jump</p>
-            </div>
+          <button
+            className="min-w-[150px] rounded border border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:border-transparent hover:bg-[#222660] hover:text-white"
+            onClick={() => {
+              takeoffHandler()
+            }}
+          >
+            Takeoff
+          </button>
+
+          <button
+            className="min-w-[150px] rounded border border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:border-transparent hover:bg-[#222660] hover:text-white"
+            onClick={() => {
+              landingHandler()
+            }}
+          >
+            Landing
+          </button>
+
+          <button
+            className="min-w-[150px] rounded border border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:border-transparent hover:bg-[#222660] hover:text-white"
+            onClick={() => {
+              nextFrameHandler()
+            }}
+          >
+            Next frame
+          </button>
+
+          <button
+            className="min-w-[150px] rounded border border-[#222660] bg-transparent px-4 py-2 font-semibold text-[#222660] hover:border-transparent hover:bg-[#222660] hover:text-white"
+            onClick={() => {
+              calculateVerticalHandler()
+            }}
+          >
+            Calculate
+          </button>
+        </div>
+      </div>
+
+      <div className="mb-8 flex min-h-[750px] w-[90%] flex-col items-center justify-center rounded bg-white p-8 text-2xl lg:ml-10 lg:mr-[5%] lg:max-w-[300px] lg:shrink lg:flex-grow lg:basis-[25%]">
+        <h2 className="border-b-2 border-[#CD2444] pb-2 text-center text-3xl">
+          Results
+        </h2>
+
+        <div className="flex flex-col items-center text-center">
+          <div className="flex h-32  flex-col items-center justify-center">
+            <p>{round2Dp(takeoffTime)}s</p>
+            <p className="text-[#CD2444]">Takeoff</p>
+          </div>
+          <div className="flex h-32  flex-col items-center justify-center">
+            <p>{round2Dp(landingTime)}s</p>
+            <p className="text-[#CD2444]">Landing</p>
+          </div>
+          <div className="flex h-32  flex-col items-center justify-center">
+            <p>
+              {landingTime - takeoffTime > 0
+                ? round2Dp(landingTime - takeoffTime)
+                : 0}
+              s
+            </p>
+            <p className="text-[#CD2444]">Flight Time</p>
+          </div>
+          <div className="flex h-32  flex-col items-center justify-center">
+            <p>{vertical}"</p>
+            <p className="text-[#CD2444]">Vertical Jump</p>
           </div>
         </div>
       </div>
 
-      <div className="bg-white p-8">
+      <div className="w-[90%] bg-white p-8 lg:max-w-[1440px]">
         <h2 className="pb-4 text-2xl text-[#CD2444]">
           How to calculate your vertical jump height:
         </h2>
@@ -334,3 +332,13 @@ export default function calculateVertical() {
     </div>
   )
 }
+
+/**
+ * Right now, when the css is saying that everything is always flex col
+ * but i need to make so then when it is lg and above then it brings the 2nd row to the first row
+ * solution:
+ * when lg
+ *  set container to flex row
+ *  set first 2 div to flex 1 1 70% and 1 1 30%
+ *  set last div to flex 1 1 100%
+ */
