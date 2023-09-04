@@ -299,7 +299,7 @@ export default function CalculateVertical() {
             <p className="text-[#CD2444]">Flight Time</p>
           </div>
           <div className="flex h-32  flex-col items-center justify-center">
-            <p>{vertical}"</p>
+            <p>{vertical}&quot;</p>
             <p className="text-[#CD2444]">Vertical Jump</p>
           </div>
         </div>
@@ -318,14 +318,15 @@ export default function CalculateVertical() {
           </li>
           <li className="pb-1">
             Play the video and find the point where your feet just leaves the
-            ground, then press the 'Takeoff' button.
+            ground, then press the &apos;Takeoff&apos; button.
           </li>
           <li className="pb-1">
-            When your foot touches the ground again, press the 'Landing' button.
+            When your foot touches the ground again, press the
+            &apos;Landing&apos; button.
           </li>
           <li className="pb-1">
-            Press the 'Calclate' button to get your vertical jump height in
-            inches.
+            Press the &apos;Calclate&apos; button to get your vertical jump
+            height in inches.
           </li>
         </ol>
       </div>
