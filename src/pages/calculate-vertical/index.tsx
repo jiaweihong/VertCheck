@@ -234,7 +234,7 @@ export default function CalculateVertical() {
               previousFrameHandler()
             }}
           >
-            Previous frame
+            Previous Frame
           </button>
 
           <button
@@ -261,7 +261,7 @@ export default function CalculateVertical() {
               nextFrameHandler()
             }}
           >
-            Next frame
+            Next Frame
           </button>
 
           <button
@@ -325,7 +325,7 @@ export default function CalculateVertical() {
             &apos;Landing&apos; button.
           </li>
           <li className="pb-1">
-            Press the &apos;Calclate&apos; button to get your vertical jump
+            Press the &apos;Calculate&apos; button to get your vertical jump
             height in inches.
           </li>
         </ol>

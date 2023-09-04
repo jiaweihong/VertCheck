@@ -53,9 +53,9 @@ export default function Faq() {
             </Accordion.Title>
             <Accordion.Content>
               <p>
-                The app uses the time that you are in the air for and the
-                displacement equation from physics to calculate the distance you
-                are in the air for. Refer to the image below:
+                The app uses the flight time of your jump and the displacement
+                equation from physics to calculate the height of your jump.
+                Refer to the image below:
               </p>
               <img src="/images/faq-explanation.png"></img>
             </Accordion.Content>
@@ -73,8 +73,8 @@ export default function Faq() {
               <br />
               <p>
                 However, the biggest thing that would affect your jump height
-                using our app would be when you mark your takeoff and landing
-                time. To get the most accurate result you want to mark your
+                using the app would be when the timing of your takeoff and
+                landing. To get the most accurate result you want to mark your
                 takeoff right when your foot leaves the ground and landing right
                 when your foot touches the ground.
               </p>
@@ -82,7 +82,7 @@ export default function Faq() {
               <p>
                 Ideally, you would want to land as minimal knee bend. Since
                 bending your legs on landing would artificially increase flight
-                time.
+                time and therefore inflate jump height.
               </p>
             </Accordion.Content>
           </Accordion.Panel>

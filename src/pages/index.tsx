@@ -56,7 +56,7 @@ export default function Home() {
             />
             <h4 className="text-2xl">Step 2</h4>
 
-            <p className="text-gray-700">Mark the start and end of the jump</p>
+            <p className="text-gray-700">Mark the start and end of your jump</p>
           </div>
 
           <div className="w-[250px] rounded-2xl border border-gray-300 px-10 py-10 shadow">
