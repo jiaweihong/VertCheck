@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useRef, useState } from 'react'
 import { SquareLoader } from 'react-spinners'
 
-export default function calculateVertical() {
+export default function CalculateVertical() {
   const [videoPlayer, setVideoPlayerSrc] = useState('')
   const [isFpsCalculated, setIsFpsCalculated] = useState(false)
   const [isVideoUploading, setIsVideoUploading] = useState(false)

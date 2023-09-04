@@ -39,7 +39,7 @@ const accordionTheme: CustomFlowbiteTheme = {
   },
 }
 
-export default function faq() {
+export default function Faq() {
   return (
     <div className="flex justify-center py-5">
       <Flowbite theme={{ theme: accordionTheme }}>
