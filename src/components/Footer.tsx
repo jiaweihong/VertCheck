@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 export default function Footer() {
   return (
     <div className="flex justify-center border-t-2 border-[#CD2444] bg-[#FFFFFF] py-5 text-[#19323C]">
-      <div className="grid w-[80%] max-w-[1800px] grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid w-[80%] max-w-[1800px] auto-cols-max gap-4 md:justify-around">
         <div className="">
           <Link
             href="/"
@@ -56,9 +56,3 @@ export default function Footer() {
     </div>
   )
 }
-
-/**
- * standard is all in a col
- * above sm is 2 col
- * above md 3 col
- */
