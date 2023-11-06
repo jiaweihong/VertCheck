@@ -1,1 +1,3 @@
-A web app that calculates your vertical jump using video analysis
+A web app that calculates the height of a user's vertical jump using video analysis.
+
+Link to website: https://vertcheck-6b91e.web.app/
