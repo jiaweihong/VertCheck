@@ -13,6 +13,20 @@
 
 Link to website: https://vertcheck-6b91e.web.app/
 
-**Main Page**
+**Home Page**
+
+![homepage-f](https://github.com/user-attachments/assets/26672d34-a900-44e8-901c-b52945c3d84f)
 
 
+**Upload Video**
+
+![upload-f](https://github.com/user-attachments/assets/5f60dd7e-87eb-4f52-ab71-0dd737b12607)
+
+
+**Calculate Jump**
+
+![calculate-f](https://github.com/user-attachments/assets/a2c47c77-b5fd-432b-9103-c9db7429fbca)
+
+**FAQ Page**
+
+![faq-f](https://github.com/user-attachments/assets/4cddd607-408e-4466-85e8-912378bd26bc)
